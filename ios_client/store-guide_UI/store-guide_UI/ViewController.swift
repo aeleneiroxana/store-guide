@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Speech
 import AVFoundation
 
-class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate, UITableViewDataSource, AVAudioPlayerDelegate {
 
+    @IBOutlet weak var transcriptionTextField: UITextView!
     var recordinSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
@@ -112,6 +114,19 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
         catch {
             
         }
+        
+        let recognizer = SFSpeechRecognizer()
+        let request = SFSpeechURLRecognitionRequest(url: path)
+        recognizer?.recognitionTask(with: request) { (result, error) in
+            if let error = error {
+                print("There was an error: \(error)")
+            } else {
+                self.transcriptionTextField.text = result?.bestTranscription.formattedString
+                print(result?.bestTranscription.formattedString)
+            }
+        
+        }
     }
+
 }
 

@@ -7,7 +7,7 @@ import speech_recognition as sr
 
 r = sr.Recognizer()
 
-with sr.Microphone(2) as source:
+with sr.Microphone(0) as source:
     print("I am listening to you!")
     # print(sr.Microphone.list_microphone_names())
     # r.adjust_for_ambient_noise(source)
