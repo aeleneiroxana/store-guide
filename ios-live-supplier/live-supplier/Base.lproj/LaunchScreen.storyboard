@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="facebook-img" translatesAutoresizingMaskIntoConstraints="NO" id="6Fx-7J-WYE">
+                                <rect key="frame" x="87" y="333" width="240" height="240"/>
+                                <color key="backgroundColor" red="0.23617598410000001" green="0.34275841709999999" blue="0.59610527749999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="240" id="3QD-i9-ir3"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="240" id="8ID-bP-e6O"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="240" id="KQg-z2-Yxj"/>
+                                    <constraint firstAttribute="height" constant="240" id="SlL-Vw-Txc"/>
+                                    <constraint firstAttribute="width" constant="240" id="llZ-8n-5hV"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="tjZ-lC-DET"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.23617598410000001" green="0.34275841709999999" blue="0.59610527749999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="6Fx-7J-WYE" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="RgA-h6-awh"/>
+                            <constraint firstItem="6Fx-7J-WYE" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="nRy-Mb-9Pa"/>
+                            <constraint firstItem="6Fx-7J-WYE" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="15:56" id="sns-Bw-2ER"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="53" y="375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="facebook-img" width="1200" height="451"/>
+    </resources>
+</document>
