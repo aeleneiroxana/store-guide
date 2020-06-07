@@ -22,7 +22,6 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="6b2-eS-ynn"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="MeB-uo-VmU"/>
                                     <constraint firstAttribute="width" constant="300" id="Rqq-bQ-fze"/>
-                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="92" id="dXQ-r8-3lg"/>
                                     <constraint firstAttribute="height" constant="100" id="rGA-Dw-Uma"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="facebook-img"/>
@@ -30,8 +29,8 @@
                                     <action selector="fbAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="A3n-Zi-Dhq"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Login for cookies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2f-nQ-f3Q">
-                                <rect key="frame" x="10" y="321" width="394" height="51"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login for cookies" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2f-nQ-f3Q">
+                                <rect key="frame" x="10" y="289" width="394" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -44,13 +43,11 @@
                                     <action selector="btnSignOutAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Czy-Nu-JI8"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Login via" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCp-zU-Lkp">
-                                <rect key="frame" x="127" y="220" width="123" height="39"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login via" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCp-zU-Lkp">
+                                <rect key="frame" x="87" y="194" width="240" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="0ER-HT-aCB"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="240" id="MNh-4f-0eb"/>
                                     <constraint firstAttribute="width" constant="240" id="g0Y-tt-pIx"/>
-                                    <constraint firstAttribute="height" constant="240" id="kY0-li-0g8"/>
+                                    <constraint firstAttribute="height" constant="75" id="kY0-li-0g8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
@@ -60,11 +57,13 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="OCp-zU-Lkp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="150" id="9hi-fb-gWz"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="D2f-nQ-f3Q" secondAttribute="trailing" constant="10" id="Kb7-nY-528"/>
                             <constraint firstItem="D2f-nQ-f3Q" firstAttribute="top" secondItem="OCp-zU-Lkp" secondAttribute="bottom" constant="20" id="T9O-aX-avZ"/>
                             <constraint firstItem="hjS-jB-lVt" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="kKI-b4-Hu4"/>
                             <constraint firstItem="hjS-jB-lVt" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="sIC-Iz-75r"/>
                             <constraint firstItem="D2f-nQ-f3Q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="xUT-OE-AJS"/>
+                            <constraint firstItem="OCp-zU-Lkp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="znc-Sw-FBo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
