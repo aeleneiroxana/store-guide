@@ -22,10 +22,14 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     private var word1 = "C"
     private var word2 = "C"
+    private var shouldMatch = true
+    
+    private var currentScore = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // for testing only
         let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(changeWords), userInfo: nil, repeats: true)
         
         self.addCameraInput()
@@ -172,5 +176,14 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
         label.isWrapped = true
         eyeDrawing.addSublayer(label)
         return eyeDrawing
+    }
+    
+    private func updateScore(userAnswer: Bool)
+    {
+        if userAnswer == shouldMatch
+        {
+            let wordLen = word1.count
+            currentScore = currentScore + wordLen
+        }
     }
 }
