@@ -16,6 +16,7 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var fb_login_Status: UILabel!
     @IBOutlet weak var btn_sign_out: UIButton!
+    @IBOutlet weak var btn_without_fb: UIButton!
     var userName = ""
     var email = ""
     
@@ -91,6 +92,13 @@ class ViewController: UIViewController {
             })
 
         }
+    }
+    
+    
+    @IBAction func continueWithoutFb(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "MyTabBarController")
+        self.present(vc, animated: true)
     }
     
     func currentUserName() {

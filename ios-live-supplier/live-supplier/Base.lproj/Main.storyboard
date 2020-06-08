@@ -57,6 +57,14 @@
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" cocoaTouchSystemColor="lightTextColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBI-EH-SGc">
+                                <rect key="frame" x="117" y="612" width="179" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="or continue with the game"/>
+                                <connections>
+                                    <action selector="continueWithoutFb:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0ho-DK-VmG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -70,6 +78,7 @@
                     </view>
                     <connections>
                         <outlet property="btn_sign_out" destination="iMp-n0-HwS" id="qal-5Z-EH5"/>
+                        <outlet property="btn_without_fb" destination="fBI-EH-SGc" id="uaL-Rv-Ohh"/>
                         <outlet property="fb_login_Status" destination="D2f-nQ-f3Q" id="DU3-H5-xee"/>
                     </connections>
                 </viewController>
