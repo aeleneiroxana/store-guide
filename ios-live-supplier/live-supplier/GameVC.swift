@@ -20,11 +20,14 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     private var drawings: [CAShapeLayer] = []
     
-    private var word1 = "Cuvant1"
-    private var word2 = "Cuvant2"
+    private var word1 = "C"
+    private var word2 = "C"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(changeWords), userInfo: nil, repeats: true)
+        
         self.addCameraInput()
         self.showCameraFeed()
         self.getCameraFrames()
@@ -34,6 +37,11 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.previewLayer.frame = self.view.frame
+    }
+    
+    @objc func changeWords() {
+        word1 = word1 + "W"
+        word2 = word2 + "G"
     }
     
     private func addCameraInput() {
@@ -109,31 +117,55 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     private func drawFaceFeatures(_ landmarks: VNFaceLandmarks2D, screenBoundingBox: CGRect) -> [CAShapeLayer] {
         var faceFeaturesDrawings: [CAShapeLayer] = []
         if let leftEye = landmarks.leftEye {
-            let eyeDrawing = self.drawEye(leftEye, screenBoundingBox: screenBoundingBox, word: word1)
+            let eyeDrawing = self.drawEye(leftEye, screenBoundingBox: screenBoundingBox, word: word1, isLeft:true)
             faceFeaturesDrawings.append(eyeDrawing)
         }
         if let rightEye = landmarks.rightEye {
-            let eyeDrawing = self.drawEye(rightEye, screenBoundingBox: screenBoundingBox, word:word2)
+            let eyeDrawing = self.drawEye(rightEye, screenBoundingBox: screenBoundingBox, word:word2, isLeft:false)
             faceFeaturesDrawings.append(eyeDrawing)
         }
         // draw other face features here
         return faceFeaturesDrawings
     }
     
-    private func drawEye(_ eye: VNFaceLandmarkRegion2D, screenBoundingBox: CGRect, word: String) -> CAShapeLayer {
-        let eyePath = CGMutablePath()
-        let eyePathPoints = eye.normalizedPoints
-            .map({ eyePoint in
-                CGPoint(
-                    x: eyePoint.y * screenBoundingBox.height * 2 + screenBoundingBox.origin.x,
-                    y: eyePoint.x * screenBoundingBox.width * 2 + screenBoundingBox.origin.y)
-            })
-        eyePath.addLines(between: eyePathPoints)
-        eyePath.closeSubpath()
+    private func drawEye(_ eye: VNFaceLandmarkRegion2D, screenBoundingBox: CGRect, word: String, isLeft: Bool) -> CAShapeLayer {
+        let eyeMaxX = eye.normalizedPoints.max{$0.x < $1.x}!.x
+        let eyeMinX = eye.normalizedPoints.min{$0.x < $1.x}!.x
+        let eyeMaxY = eye.normalizedPoints.max{$0.y < $1.y}!.y
+        let eyeMinY = eye.normalizedPoints.min{$0.y < $1.y}!.y
+        
+        let leftUpX = eyeMaxY * screenBoundingBox.height + screenBoundingBox.origin.x
+        
+        let leftUpY = eyeMinX * screenBoundingBox.width + screenBoundingBox.origin.y
+        
+        let rightDownX = eyeMinY * screenBoundingBox.height + screenBoundingBox.origin.x
+        
+        let rightDownY = eyeMaxX * screenBoundingBox.width + screenBoundingBox.origin.y
+        
+        var bias = 25
+        if !isLeft{
+            
+            bias = 50
+        }
+        
+        let customRect = CGRect(x:leftUpX + CGFloat(bias), y:rightDownY + 20, width : (rightDownX-leftUpX) * 2.5, height : (leftUpY-rightDownY) * 4)
+        
+        let eyeRectangle = UIBezierPath(rect: customRect)
+        
         let eyeDrawing = CAShapeLayer()
-        eyeDrawing.path = eyePath
+        eyeDrawing.path = eyeRectangle.cgPath
         eyeDrawing.fillColor = UIColor.white.cgColor
         eyeDrawing.strokeColor = UIColor.black.cgColor
+        
+        let customRect2 = CGRect(x:leftUpX + CGFloat(bias), y:rightDownY + 20, width : (rightDownX-leftUpX) * 2.5, height : (leftUpY-rightDownY) * 4)
+        
+        let label = CATextLayer()
+        label.frame = customRect2
+        label.string = word
+        
+        label.foregroundColor = UIColor.black.cgColor
+        label.isHidden = false
+        eyeDrawing.addSublayer(label)
         return eyeDrawing
     }
 }
