@@ -142,13 +142,14 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
         
         let rightDownY = eyeMaxX * screenBoundingBox.width + screenBoundingBox.origin.y
         
-        var bias = 25
-        if !isLeft{
-            
-            bias = 50
-        }
+        let wordLen = word.count
+        let eyeWidth = leftUpX-rightDownX
+        let eyeHeight = rightDownY-leftUpY
+        let bias = -25
         
-        let customRect = CGRect(x:leftUpX + CGFloat(bias), y:rightDownY + 20, width : (rightDownX-leftUpX) * 2.5, height : (leftUpY-rightDownY) * 4)
+        let fontSize = eyeWidth / CGFloat(Double(wordLen) / 1.6)
+        
+        let customRect = CGRect(x:rightDownX + CGFloat(bias), y:leftUpY + CGFloat(bias), width :  eyeWidth * 2, height : eyeHeight * 4)
         
         let eyeRectangle = UIBezierPath(rect: customRect)
         
@@ -157,14 +158,18 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
         eyeDrawing.fillColor = UIColor.white.cgColor
         eyeDrawing.strokeColor = UIColor.black.cgColor
         
-        let customRect2 = CGRect(x:leftUpX + CGFloat(bias), y:rightDownY + 20, width : (rightDownX-leftUpX) * 2.5, height : (leftUpY-rightDownY) * 4)
-        
         let label = CATextLayer()
+        
+        let customRect2 = CGRect(x:rightDownX + CGFloat(bias), y:leftUpY + CGFloat(bias) + eyeHeight, width : eyeWidth * 2, height : eyeHeight * 4)
+        
+        
         label.frame = customRect2
         label.string = word
-        
+        label.fontSize = fontSize
         label.foregroundColor = UIColor.black.cgColor
         label.isHidden = false
+        label.alignmentMode = CATextLayerAlignmentMode.center
+        label.isWrapped = true
         eyeDrawing.addSublayer(label)
         return eyeDrawing
     }
