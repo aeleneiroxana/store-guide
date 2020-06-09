@@ -22,19 +22,30 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     private var word1 = "C"
     private var word2 = "C"
-    private var shouldMatch = true
+    private var correctAns = 1
     
     private var currentScore = 0
+    
+    private var timer: Timer?
+    private var runCount:Double = 0
+    private var initialTime = 15.0
+    private var ended = false
+    private var userAnswer = 0 //0 means no answer given *yet*
+    
+    private var scoreLabel: UILabel?
+    private var timerLabel: UILabel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // for testing only
-        let timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(changeWords), userInfo: nil, repeats: true)
-        
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(fireTimerFunc), userInfo: nil, repeats: true)
+                
         self.addCameraInput()
         self.showCameraFeed()
         self.getCameraFrames()
+        self.addGameLabels()
+
         self.captureSession.startRunning()//should be the last thing to call
     }
     
@@ -46,6 +57,20 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     @objc func changeWords() {
         word1 = word1 + "W"
         word2 = word2 + "G"
+    }
+    
+    @objc func fireTimerFunc(){
+        runCount += 0.1
+        
+        if(runCount > initialTime){
+            word1 += "DONE"
+            timer?.invalidate()
+            ended = true
+            print("Final score: ", currentScore)
+            timerLabel!.text = "Time: 0.0"
+        } else {
+            timerLabel!.text = "Time: " + String(format:"%.1f", initialTime - runCount)
+        }
     }
     
     private func addCameraInput() {
@@ -128,8 +153,49 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
             let eyeDrawing = self.drawEye(rightEye, screenBoundingBox: screenBoundingBox, word:word2, isLeft:false)
             faceFeaturesDrawings.append(eyeDrawing)
         }
+        if let medianLine = landmarks.medianLine{
+            
+            let orientation = self.getFaceOrientation(medianLine: medianLine)
+            
+            if !self.ended{
+                // if player gave an answer, process it
+                self.handlePlayerResponse(orientation: orientation)
+                
+            } else {
+                self.handleGameEnd()
+            }
+        }
         // draw other face features here
         return faceFeaturesDrawings
+    }
+    
+    /**
+        Gets the face orientation of the person in the frame
+     
+        - Parameter medianLine: the median line across the face
+        - Parameter epsilon: sensitivity of the function; default: 0.05; higher value = less likely to trigger
+     
+        - Returns:  negative value if left,
+                    positive value if right
+                    0 if neutral
+     */
+    private func getFaceOrientation(medianLine: VNFaceLandmarkRegion2D, epsilon: Double = 0.05) -> Int{
+        let eps = CGFloat(floatLiteral: epsilon)
+        
+        // 10 points aligned vertically across the middle of the face
+        let points = medianLine.normalizedPoints
+        
+        let first = points[0].y             // top of head
+        let last = points[points.count-1].y // bottom of chin
+        let middle = points[3].y            // tip of nose
+        
+        if middle > first + eps && middle > last + eps{ // face oriented to the right
+            return 1
+        } else if middle < first - eps && middle < last - eps{ // face oriented to the left
+            return -1
+        }
+        // no obvious orientation
+        return 0
     }
     
     private func drawEye(_ eye: VNFaceLandmarkRegion2D, screenBoundingBox: CGRect, word: String, isLeft: Bool) -> CAShapeLayer {
@@ -178,12 +244,59 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
         return eyeDrawing
     }
     
-    private func updateScore(userAnswer: Bool)
+    private func updateScore(userAnswer: Int)
     {
-        if userAnswer == shouldMatch
+        if userAnswer == correctAns
         {
             let wordLen = word1.count
             currentScore = currentScore + wordLen
+            scoreLabel!.text = "Score: " + String(currentScore)
         }
+    }
+    
+    private func addGameLabels(){
+        scoreLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
+        scoreLabel!.font = UIFont.preferredFont(forTextStyle: .headline)
+        scoreLabel!.center = CGPoint(x: 160, y: self.view.bounds.size.height - 48)
+        scoreLabel!.textAlignment = .left
+        scoreLabel!.text = "Score: " + String(currentScore)
+        scoreLabel!.backgroundColor = .white
+        scoreLabel!.textColor = .black
+        self.view.addSubview(scoreLabel!)
+        
+        timerLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 24))
+        timerLabel!.font = UIFont.preferredFont(forTextStyle: .headline)
+        timerLabel!.center = CGPoint(x: 160, y: self.view.bounds.size.height - 24)
+        timerLabel!.textAlignment = .left
+        timerLabel!.text = "Time: " + String(initialTime - runCount)
+        timerLabel!.backgroundColor = .white
+        timerLabel!.textColor = .black
+        self.view.addSubview(timerLabel!)
+    }
+    
+    private func changeWordSet(){
+        // TODO
+        word1 = "ceva"
+        word2 = "altceva"
+        correctAns = 1
+    }
+    
+    private func handlePlayerResponse(orientation: Int){
+        if orientation > 0{
+            userAnswer = 2
+        } else if orientation < 0{
+            userAnswer = 1
+        }  else if orientation == 0 && userAnswer > 0{
+            // add points if answer was correct
+            self.updateScore(userAnswer: userAnswer)
+            // change wordSet
+            self.changeWordSet()
+            userAnswer = 0
+        }
+    }
+    
+    private func handleGameEnd(){
+        // TODO
+        // don't know what to do yet
     }
 }
