@@ -2,7 +2,9 @@ const http = require('http');
 const port = 3000
 
 const server = http.createServer(function(req, res){
-    res.write('Hello Node')
+    res.writeHead(200, {'Content-Type': 'json'})
+    console.log(req.body)
+    res.write('FD')
     res.end()
 })
 

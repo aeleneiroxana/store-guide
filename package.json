@@ -1,0 +1,27 @@
+{
+  "name": "store-guide",
+  "version": "1.0.0",
+  "description": "node restful api",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aeleneiroxana/store-guide.git"
+  },
+  "keywords": [
+    "node",
+    "restful",
+    "api"
+  ],
+  "author": "Tavi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aeleneiroxana/store-guide/issues"
+  },
+  "homepage": "https://github.com/aeleneiroxana/store-guide#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
