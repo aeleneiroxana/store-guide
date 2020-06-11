@@ -1,19 +1,11 @@
-const http = require('http');
-const port = 3000
+const express = require('express');
 
-const server = http.createServer(function(req, res){
-    res.writeHead(200, {'Content-Type': 'json'})
-    console.log(req.body)
-    res.write('FD')
-    res.end()
-})
+const app = express();
 
-server.listen(port, function(error) {
-    if(error){
-        console.log('Something went wrong', error)
-    } else {
-        console.log('Server is listening on port' + port)
-    }
+app.use((req, res, next) => {
+    res.status(200).json({
+        message: 'It works!'
+    });
+});
 
-    
-})
+module.exports = app;
