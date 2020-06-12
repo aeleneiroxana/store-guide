@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QDW-vW-KKH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -90,7 +90,7 @@
             <objects>
                 <viewController id="QDW-vW-KKH" customClass="GameVC" customModule="live_supplier" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tBA-Mv-ACZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="g4E-y2-kN4"/>
@@ -98,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cHz-4n-op5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="94" y="923"/>
+            <point key="canvasLocation" x="2696" y="118"/>
         </scene>
         <!--Recorder-->
         <scene sceneID="Z8P-SW-jZE">
@@ -155,6 +155,7 @@
                                 <rect key="frame" x="303" y="63" width="111" height="30"/>
                                 <state key="normal" title="Start game"/>
                                 <connections>
+                                    <action selector="sendToGameButton:" destination="BGs-6H-yJv" eventType="touchUpInside" id="vKE-O1-0DD"/>
                                     <action selector="startGame:" destination="BGs-6H-yJv" eventType="touchUpInside" id="OJF-aC-eap"/>
                                 </connections>
                             </button>
@@ -179,6 +180,7 @@
                         <outlet property="buttonLabel" destination="HeS-0K-41N" id="Mrj-P3-nrp"/>
                         <outlet property="myTableView" destination="MCr-ax-Pf7" id="z5C-99-4Le"/>
                         <outlet property="transcriptionTextField" destination="qUV-ls-ehR" id="kt9-yK-Wbp"/>
+                        <segue destination="QDW-vW-KKH" kind="presentation" destinationCreationSelector="GoToGame" id="KWp-rF-8KI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b4z-wk-s5a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

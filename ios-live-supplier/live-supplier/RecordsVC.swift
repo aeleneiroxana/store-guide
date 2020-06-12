@@ -15,10 +15,15 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
     var recordinSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
+    var gameInput : Any = []
     @IBOutlet weak var buttonLabel: UIButton!
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var transcriptionTextField: UITextView!
     
+    @IBAction func sendToGameButton(_ sender: Any) {
+        
+        performSegue(withIdentifier: "GoToGame", sender: self)
+    }
     var numberOfRecords = 0;
     var textToSend = "";
     
@@ -55,6 +60,10 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       let destVC : GameVC = segue.destination as! GameVC
+        destVC.inputList = gameInput
+    }
     
     override func viewDidLoad() {
        super.viewDidLoad()
@@ -130,6 +139,7 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
         UserDefaults.standard.removeObject(forKey: "myNumber")
 
         myTableView.reloadData()
+        gameInput = []
     }
     
     @IBAction func startGame(_ sender: Any) {
@@ -160,9 +170,13 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
             if let responseCode = (response as? HTTPURLResponse)?.statusCode, let responseData = responseData {
 
                 
-                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) {
+                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String:Any] {
                     print("Response JSON data = \(responseJSONData)")
+
+                    
+                    self.gameInput = responseJSONData["list"]!
                 }
+                
             }
         }.resume()
         

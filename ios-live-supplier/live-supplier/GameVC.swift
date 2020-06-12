@@ -20,9 +20,12 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     private var drawings: [CAShapeLayer] = []
     
-    private var word1 = "C"
-    private var word2 = "C"
-    private var correctAns = 1
+    var inputList : Any = []
+    private var roundsList : [Round] = []
+    
+    private var word1 = ""
+    private var word2 = ""
+    private var correctAns = ""
     
     private var currentScore = 0
     
@@ -30,7 +33,7 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     private var runCount:Double = 0
     private var initialTime = 15.0
     private var ended = false
-    private var userAnswer = 0 //0 means no answer given *yet*
+    private var userAnswer : String? = nil //nil means no answer given *yet*
     
     private var scoreLabel: UILabel?
     private var timerLabel: UILabel?
@@ -38,9 +41,9 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // for testing only
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(fireTimerFunc), userInfo: nil, repeats: true)
-                
+        
+        self.toRounds()
         self.addCameraInput()
         self.showCameraFeed()
         self.getCameraFrames()
@@ -54,11 +57,6 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
         self.previewLayer.frame = self.view.frame
     }
     
-    @objc func changeWords() {
-        word1 = word1 + "W"
-        word2 = word2 + "G"
-    }
-    
     @objc func fireTimerFunc(){
         runCount += 0.1
         
@@ -70,6 +68,22 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
             timerLabel!.text = "Time: 0.0"
         } else {
             timerLabel!.text = "Time: " + String(format:"%.1f", initialTime - runCount)
+        }
+    }
+    
+    private func toRounds()
+    {
+        
+        let decoder = JSONDecoder()
+        do{
+            roundsList = try decoder.decode([Round].self, from: inputList as! Data)
+            word1 = roundsList[0].first
+            word2 = roundsList[0].second
+            correctAns = roundsList[0].answer
+            roundsList.remove(at: 0)
+        }
+        catch{
+            print("Wrong format wtf")
         }
     }
     
@@ -244,7 +258,7 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
         return eyeDrawing
     }
     
-    private func updateScore(userAnswer: Int)
+    private func updateScore(userAnswer: String)
     {
         if userAnswer == correctAns
         {
@@ -276,22 +290,23 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     private func changeWordSet(){
         // TODO
-        word1 = "ceva"
-        word2 = "altceva"
-        correctAns = 1
+        word1 = roundsList[0].first
+        word2 = roundsList[0].second
+        correctAns = roundsList[0].answer
+        roundsList.remove(at:0)
     }
     
     private func handlePlayerResponse(orientation: Int){
         if orientation > 0{
-            userAnswer = 2
+            userAnswer = "right"
         } else if orientation < 0{
-            userAnswer = 1
-        }  else if orientation == 0 && userAnswer > 0{
+            userAnswer = "left"
+        }  else if orientation == 0 && userAnswer != nil  && ended == false{
             // add points if answer was correct
-            self.updateScore(userAnswer: userAnswer)
+            self.updateScore(userAnswer: userAnswer!)
             // change wordSet
             self.changeWordSet()
-            userAnswer = 0
+            userAnswer = nil
         }
     }
     
@@ -299,4 +314,11 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
         // TODO
         // don't know what to do yet
     }
+}
+
+struct Round: Codable{
+    var answer : String
+    var first: String
+    var original: String
+    var second: String
 }
