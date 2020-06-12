@@ -180,7 +180,7 @@
                         <outlet property="buttonLabel" destination="HeS-0K-41N" id="Mrj-P3-nrp"/>
                         <outlet property="myTableView" destination="MCr-ax-Pf7" id="z5C-99-4Le"/>
                         <outlet property="transcriptionTextField" destination="qUV-ls-ehR" id="kt9-yK-Wbp"/>
-                        <segue destination="QDW-vW-KKH" kind="presentation" destinationCreationSelector="GoToGame" id="KWp-rF-8KI"/>
+                        <segue destination="QDW-vW-KKH" kind="presentation" id="KWp-rF-8KI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b4z-wk-s5a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

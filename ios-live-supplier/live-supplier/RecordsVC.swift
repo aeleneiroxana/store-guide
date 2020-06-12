@@ -24,6 +24,13 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
         
         performSegue(withIdentifier: "GoToGame", sender: self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC : GameVC = segue.destination as! GameVC
+         destVC.inputList = gameInput
+     }
+     
+    
     var numberOfRecords = 0;
     var textToSend = "";
     
@@ -59,12 +66,7 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
             buttonLabel.setTitle("Start Recording", for: .normal)
         }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       let destVC : GameVC = segue.destination as! GameVC
-        destVC.inputList = gameInput
-    }
-    
+ 
     override func viewDidLoad() {
        super.viewDidLoad()
        // Do any additional setup after loading the view.
