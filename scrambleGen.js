@@ -3,13 +3,13 @@ module.exports = function(words) {
     let amount = 100;
     let tuplets = [];
     let lastWord = "";
-
-    words = JSON.parse(words).map((word)=>word.toLowerCase());
+    console.log(words)
+    words = words.map((word)=>word.toLowerCase());
     for(let i = 0; i < amount; i++) {
         lastWord = randomWord(words, lastWord);
         tuplets.push(createTuplet(lastWord));
     }
-    return JSON.stringify(tuplets);
+    return tuplets;
 };
 
 function randomWord(words, lastWord) {
