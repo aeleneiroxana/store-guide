@@ -61,7 +61,6 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
         runCount += 0.1
         
         if(runCount > initialTime){
-            word1 += "DONE"
             timer?.invalidate()
             ended = true
             print("Final score: ", currentScore)

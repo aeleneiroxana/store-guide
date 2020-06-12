@@ -25,6 +25,8 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
         performSegue(withIdentifier: "GoToGame", sender: self)
     }
     
+    
+     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destVC : GameVC = segue.destination as! GameVC
          destVC.inputList = gameInput
@@ -172,11 +174,11 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
             if let responseCode = (response as? HTTPURLResponse)?.statusCode, let responseData = responseData {
 
                 
-                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String:Any] {
+                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Data {
                     print("Response JSON data = \(responseJSONData)")
 
                     
-                    self.gameInput = responseJSONData["list"]!
+                    self.gameInput = responseJSONData
                 }
                 
             }
