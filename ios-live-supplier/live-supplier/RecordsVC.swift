@@ -20,6 +20,7 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
     @IBOutlet weak var transcriptionTextField: UITextView!
     
     var numberOfRecords = 0;
+    var textToSend = "";
     
     @IBAction func record(_ sender: Any) {
         //Check if we have an active recorder
@@ -119,10 +120,51 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
                 print("There was an error: \(error)")
             } else {
                 self.transcriptionTextField.text = result?.bestTranscription.formattedString
-                print(result?.bestTranscription.formattedString as Any)
+                self.textToSend = (result?.bestTranscription.formattedString ?? "") as String
             }
-
         }
     }
     
+    
+    @IBAction func removeAllData(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "myNumber")
+
+        myTableView.reloadData()
+    }
+    
+    @IBAction func startGame(_ sender: Any) {
+        print(self.textToSend);
+        let arrayOfWords = self.textToSend.components(separatedBy: " ")
+        
+        let url = URL(string: "http://localhost:3000/home")!
+        
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = [
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        ]
+        
+        let jsonDictionary: [String: [String]] = [
+            "list": arrayOfWords,
+        ]
+
+        let data = try! JSONSerialization.data(withJSONObject: jsonDictionary, options: .prettyPrinted)
+        URLSession.shared.uploadTask(with: request, from: data) { (responseData, response, error) in
+            if let error = error {
+                print("Error making PUT request: \(error.localizedDescription)")
+                return
+            }
+            
+            if let responseCode = (response as? HTTPURLResponse)?.statusCode, let responseData = responseData {
+
+                
+                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) {
+                    print("Response JSON data = \(responseJSONData)")
+                }
+            }
+        }.resume()
+        
+    }
 }

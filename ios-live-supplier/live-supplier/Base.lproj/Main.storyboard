@@ -94,16 +94,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeS-0K-41N">
-                                <rect key="frame" x="102" y="60" width="210" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HeS-0K-41N">
+                                <rect key="frame" x="-22" y="60" width="210" height="35"/>
                                 <state key="normal" title=" Start recording"/>
                                 <connections>
                                     <action selector="record:" destination="BGs-6H-yJv" eventType="touchUpInside" id="bkt-dk-mcX"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MCr-ax-Pf7">
-                                <rect key="frame" x="0.0" y="354" width="414" height="459"/>
+                                <rect key="frame" x="0.0" y="313" width="414" height="500"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="459" id="VRE-Xo-huS"/>
@@ -124,19 +123,40 @@
                                 </connections>
                             </tableView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Press a record from below to start transcribing" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qUV-ls-ehR">
-                                <rect key="frame" x="10" y="103" width="394" height="164"/>
+                                <rect key="frame" x="10" y="103" width="394" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rdC-T1-N0d">
+                                <rect key="frame" x="169" y="61" width="108" height="34"/>
+                                <state key="normal" title="Remove all"/>
+                                <connections>
+                                    <action selector="removeAllData:" destination="BGs-6H-yJv" eventType="touchUpInside" id="ly2-nS-rDz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ez2-28-73f">
+                                <rect key="frame" x="303" y="63" width="111" height="30"/>
+                                <state key="normal" title="Start game"/>
+                                <connections>
+                                    <action selector="startGame:" destination="BGs-6H-yJv" eventType="touchUpInside" id="OJF-aC-eap"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="MCr-ax-Pf7" firstAttribute="bottom" secondItem="2U8-c6-JSN" secondAttribute="bottom" id="9GU-El-KLy"/>
+                            <constraint firstItem="rdC-T1-N0d" firstAttribute="leading" secondItem="HeS-0K-41N" secondAttribute="trailing" constant="-13" id="9gr-wO-NPu"/>
+                            <constraint firstItem="MCr-ax-Pf7" firstAttribute="top" secondItem="2U8-c6-JSN" secondAttribute="top" constant="269" id="Ag4-0D-CxU"/>
+                            <constraint firstItem="ez2-28-73f" firstAttribute="leading" secondItem="rdC-T1-N0d" secondAttribute="trailing" constant="26" id="Bij-gy-vOH"/>
                             <constraint firstItem="MCr-ax-Pf7" firstAttribute="leading" secondItem="2U8-c6-JSN" secondAttribute="leading" id="Jlx-iY-ZBn"/>
+                            <constraint firstItem="rdC-T1-N0d" firstAttribute="width" secondItem="HeS-0K-41N" secondAttribute="width" multiplier="0.514286" id="WJU-Ir-au4"/>
                             <constraint firstItem="MCr-ax-Pf7" firstAttribute="trailing" secondItem="2U8-c6-JSN" secondAttribute="trailing" id="aMN-h0-yjc"/>
+                            <constraint firstItem="ez2-28-73f" firstAttribute="width" secondItem="rdC-T1-N0d" secondAttribute="width" multiplier="1.02778" id="cvO-Qg-bve"/>
+                            <constraint firstItem="rdC-T1-N0d" firstAttribute="height" secondItem="HeS-0K-41N" secondAttribute="height" multiplier="0.971429" id="qGM-Uu-WPh"/>
+                            <constraint firstItem="ez2-28-73f" firstAttribute="height" secondItem="rdC-T1-N0d" secondAttribute="height" multiplier="0.882353" id="vsP-TE-qqc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2U8-c6-JSN"/>
                     </view>
