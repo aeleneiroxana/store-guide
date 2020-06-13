@@ -15,9 +15,22 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
     var recordinSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
+    var gameInput : [[String:Any]] = []
     @IBOutlet weak var buttonLabel: UIButton!
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var transcriptionTextField: UITextView!
+    
+    @IBAction func sendToGameButton(_ sender: Any) {
+        self.startGame()
+    }
+    
+    
+     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destVC : GameVC = segue.destination as! GameVC
+        destVC.inputList = gameInput
+     }
+     
     
     var numberOfRecords = 0;
     var textToSend = "";
@@ -54,8 +67,7 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
             buttonLabel.setTitle("Start Recording", for: .normal)
         }
     }
-    
-    
+ 
     override func viewDidLoad() {
        super.viewDidLoad()
        // Do any additional setup after loading the view.
@@ -130,9 +142,10 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
         UserDefaults.standard.removeObject(forKey: "myNumber")
 
         myTableView.reloadData()
+        gameInput = []
     }
     
-    @IBAction func startGame(_ sender: Any) {
+    private func startGame() {
         print(self.textToSend);
         let arrayOfWords = self.textToSend.components(separatedBy: " ")
         
@@ -160,9 +173,16 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
             if let responseCode = (response as? HTTPURLResponse)?.statusCode, let responseData = responseData {
 
                 
-                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) {
+                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any]{
                     print("Response JSON data = \(responseJSONData)")
+
+                    
+                    self.gameInput = responseJSONData["list"] as! [[String : Any]]
+                    print("Game input:  \(self.gameInput)")
+
+                    self.performSegue(withIdentifier: "GoToGame", sender: self)
                 }
+                
             }
         }.resume()
         

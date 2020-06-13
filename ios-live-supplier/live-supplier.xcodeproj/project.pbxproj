@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		413C6286248D1B2B00CAD73A /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413C6285248D1B2B00CAD73A /* GameVC.swift */; };
 		4B9106372482AD0A00483E74 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B9106362482AD0A00483E74 /* CollectionViewCell.swift */; };
 		4BC5564A2468697F00A311C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC556492468697F00A311C6 /* AppDelegate.swift */; };
 		4BC5564C2468697F00A311C6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5564B2468697F00A311C6 /* SceneDelegate.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		413C6285248D1B2B00CAD73A /* GameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVC.swift; sourceTree = "<group>"; };
 		4B9106362482AD0A00483E74 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		4BC556462468697F00A311C6 /* live-supplier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "live-supplier.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BC556492468697F00A311C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				4BC556572468698100A311C6 /* Info.plist */,
 				4BCEE5B7246B488B007450B0 /* TabBarVC.swift */,
 				4B9106362482AD0A00483E74 /* CollectionViewCell.swift */,
+				413C6285248D1B2B00CAD73A /* GameVC.swift */,
 			);
 			path = "live-supplier";
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			files = (
 				4BCEE5BA246B5229007450B0 /* ProfileVC.swift in Sources */,
 				4BC5564E2468697F00A311C6 /* ViewController.swift in Sources */,
+				413C6286248D1B2B00CAD73A /* GameVC.swift in Sources */,
 				4B9106372482AD0A00483E74 /* CollectionViewCell.swift in Sources */,
 				4BC5564A2468697F00A311C6 /* AppDelegate.swift in Sources */,
 				4BCEE5B8246B488B007450B0 /* TabBarVC.swift in Sources */,
@@ -374,12 +378,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B326G23WH3;
 				INFOPLIST_FILE = "live-supplier/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "fmi.live-supplier";
+				PRODUCT_BUNDLE_IDENTIFIER = "fmi.live-supplier100";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -392,6 +397,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B326G23WH3;
 				INFOPLIST_FILE = "live-supplier/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
