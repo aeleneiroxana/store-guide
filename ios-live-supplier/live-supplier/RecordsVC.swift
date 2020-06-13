@@ -174,11 +174,12 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
             if let responseCode = (response as? HTTPURLResponse)?.statusCode, let responseData = responseData {
 
                 
-                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? Data {
+                if let responseJSONData = try? JSONSerialization.jsonObject(with: responseData, options: .allowFragments) as? [String: Any]{
                     print("Response JSON data = \(responseJSONData)")
 
                     
-                    self.gameInput = responseJSONData
+                    self.gameInput = responseJSONData["list"]!
+                    print("Game input:  \(self.gameInput)")
                 }
                 
             }
