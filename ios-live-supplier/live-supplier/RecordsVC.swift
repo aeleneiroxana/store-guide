@@ -15,7 +15,7 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
     var recordinSession: AVAudioSession!
     var audioRecorder: AVAudioRecorder!
     var audioPlayer: AVAudioPlayer!
-    var gameInput : Any = []
+    var gameInput : [[String:Any]] = []
     @IBOutlet weak var buttonLabel: UIButton!
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var transcriptionTextField: UITextView!
@@ -178,7 +178,7 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
                     print("Response JSON data = \(responseJSONData)")
 
                     
-                    self.gameInput = responseJSONData["list"]!
+                    self.gameInput = responseJSONData["list"] as! [[String : Any]]
                     print("Game input:  \(self.gameInput)")
                 }
                 

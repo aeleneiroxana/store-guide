@@ -20,7 +20,7 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     private var drawings: [CAShapeLayer] = []
     
-    var inputList : Any = []
+    var inputList : [[String: Any]] = []
     private var roundsList : [Round] = []
     
     private var word1 = ""
@@ -73,17 +73,16 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     private func toRounds()
     {
         
-        let decoder = JSONDecoder()
-        do{
-            roundsList = try decoder.decode([Round].self, from: inputList as! Data)
+        for input in inputList{
+         
+            var newRound = Round(answer: input["answer"] as! String, first: input["first"] as! String,  second: input["second"] as! String)
+            roundsList.append(newRound)
+        }
             word1 = roundsList[0].first
             word2 = roundsList[0].second
             correctAns = roundsList[0].answer
             roundsList.remove(at: 0)
-        }
-        catch{
-            print("Wrong format wtf")
-        }
+        
     }
     
     private func addCameraInput() {
@@ -315,9 +314,8 @@ class GameVC: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     }
 }
 
-struct Round: Codable{
+struct Round {
     var answer : String
     var first: String
-    var original: String
     var second: String
 }
