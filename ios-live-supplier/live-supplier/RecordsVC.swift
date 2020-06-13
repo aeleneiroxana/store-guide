@@ -28,6 +28,7 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
     
      
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        self.startGame()
         let destVC : GameVC = segue.destination as! GameVC
          destVC.inputList = gameInput
      }
@@ -146,7 +147,7 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
         gameInput = []
     }
     
-    @IBAction func startGame(_ sender: Any) {
+    private func startGame() {
         print(self.textToSend);
         let arrayOfWords = self.textToSend.components(separatedBy: " ")
         

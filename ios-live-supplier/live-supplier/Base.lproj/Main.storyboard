@@ -156,7 +156,6 @@
                                 <state key="normal" title="Start game"/>
                                 <connections>
                                     <action selector="sendToGameButton:" destination="BGs-6H-yJv" eventType="touchUpInside" id="vKE-O1-0DD"/>
-                                    <action selector="startGame:" destination="BGs-6H-yJv" eventType="touchUpInside" id="OJF-aC-eap"/>
                                 </connections>
                             </button>
                         </subviews>
