@@ -21,16 +21,14 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
     @IBOutlet weak var transcriptionTextField: UITextView!
     
     @IBAction func sendToGameButton(_ sender: Any) {
-        
-        performSegue(withIdentifier: "GoToGame", sender: self)
+        self.startGame()
     }
     
     
      
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.startGame()
         let destVC : GameVC = segue.destination as! GameVC
-         destVC.inputList = gameInput
+        destVC.inputList = gameInput
      }
      
     
@@ -181,6 +179,8 @@ class RecordsVC: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate,
                     
                     self.gameInput = responseJSONData["list"] as! [[String : Any]]
                     print("Game input:  \(self.gameInput)")
+
+                    self.performSegue(withIdentifier: "GoToGame", sender: self)
                 }
                 
             }
